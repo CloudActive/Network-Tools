@@ -2,9 +2,10 @@ import { config } from '@keystone-next/keystone/schema';
 import { statelessSessions, withItemData } from '@keystone-next/keystone/session';
 import { createAuth } from '@keystone-next/auth';
 
-import { lists, extendGraphqlSchema } from './schema';
+import { lists } from './schema';
+import { extendGraphqlSchema } from './graphql/extendGraphqlSchema';
 
-let sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';
+let sessionSecret = process.env.COOKIE_SECRET || '-- DEV COOKIE SECRET; CHANGE ME --';
 let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 
 const auth = createAuth({

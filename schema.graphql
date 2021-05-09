@@ -164,7 +164,7 @@ input CreateInitialUserInput {
 
 type RandomNumber {
   number: Int
-  generatedAt: Int
+  generatedAt: String
 }
 
 type Query {
