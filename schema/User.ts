@@ -1,13 +1,15 @@
 import { list } from '@keystone-next/keystone/schema';
-import {
-  text,
-  checkbox,
-  password,
-} from '@keystone-next/fields';
+import { text, checkbox, password } from '@keystone-next/fields';
 
 import { access } from './access';
 
 export const User = list({
+  access: {
+    read: access.isAdmin,
+    update: access.isAdmin,
+    delete: access.isAdmin,
+    create: access.isAdmin,
+  },
   ui: {
     listView: {
       initialColumns: ['name', 'email', 'isAdmin'],

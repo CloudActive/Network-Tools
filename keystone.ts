@@ -4,6 +4,8 @@ import { createAuth } from '@keystone-next/auth';
 
 import { lists } from './schema';
 import { extendGraphqlSchema } from './graphql/extendGraphqlSchema';
+import { contextService } from './lib/services/contextService';
+import { whoisService } from './lib/services/whoisService';
 
 let sessionSecret = process.env.COOKIE_SECRET || '-- DEV COOKIE SECRET; CHANGE ME --';
 let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
@@ -28,6 +30,11 @@ export default auth.withAuth(
     db: {
       provider: 'sqlite',
       url: process.env.DATABASE_URL || 'file:./keystone-example.db',
+      onConnect: async context => {
+        contextService.setContext(context);
+        whoisService.setContext(context);
+        // more backend processes
+      },
     },
     // NOTE -- this is not implemented, keystone currently always provides a graphql api at /api/graphql
     // graphql: {

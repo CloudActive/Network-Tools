@@ -76,6 +76,243 @@ input UsersCreateInput {
 }
 
 """
+ A keystone list
+"""
+type Domain {
+  id: ID!
+  name: String
+  registryCreationDate: String
+  registryExpiryDate: String
+  registryUpdatedDate: String
+  registryDomainId: String
+  registrar: String
+  registrarWhoisServer: String
+  lastCheckedDate: String
+  lastCheckError: String
+  checkPending: Boolean
+  whoisData: String
+  expiresIn: String
+  age: String
+}
+
+input DomainWhereInput {
+  AND: [DomainWhereInput]
+  OR: [DomainWhereInput]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  name: String
+  name_not: String
+  name_contains: String
+  name_not_contains: String
+  name_in: [String]
+  name_not_in: [String]
+  registryCreationDate: String
+  registryCreationDate_not: String
+  registryCreationDate_lt: String
+  registryCreationDate_lte: String
+  registryCreationDate_gt: String
+  registryCreationDate_gte: String
+  registryCreationDate_in: [String]
+  registryCreationDate_not_in: [String]
+  registryExpiryDate: String
+  registryExpiryDate_not: String
+  registryExpiryDate_lt: String
+  registryExpiryDate_lte: String
+  registryExpiryDate_gt: String
+  registryExpiryDate_gte: String
+  registryExpiryDate_in: [String]
+  registryExpiryDate_not_in: [String]
+  registryUpdatedDate: String
+  registryUpdatedDate_not: String
+  registryUpdatedDate_lt: String
+  registryUpdatedDate_lte: String
+  registryUpdatedDate_gt: String
+  registryUpdatedDate_gte: String
+  registryUpdatedDate_in: [String]
+  registryUpdatedDate_not_in: [String]
+  registryDomainId: String
+  registryDomainId_not: String
+  registryDomainId_contains: String
+  registryDomainId_not_contains: String
+  registryDomainId_in: [String]
+  registryDomainId_not_in: [String]
+  registrar: String
+  registrar_not: String
+  registrar_contains: String
+  registrar_not_contains: String
+  registrar_in: [String]
+  registrar_not_in: [String]
+  registrarWhoisServer: String
+  registrarWhoisServer_not: String
+  registrarWhoisServer_contains: String
+  registrarWhoisServer_not_contains: String
+  registrarWhoisServer_in: [String]
+  registrarWhoisServer_not_in: [String]
+  lastCheckedDate: String
+  lastCheckedDate_not: String
+  lastCheckedDate_lt: String
+  lastCheckedDate_lte: String
+  lastCheckedDate_gt: String
+  lastCheckedDate_gte: String
+  lastCheckedDate_in: [String]
+  lastCheckedDate_not_in: [String]
+  lastCheckError: String
+  lastCheckError_not: String
+  lastCheckError_contains: String
+  lastCheckError_not_contains: String
+  lastCheckError_in: [String]
+  lastCheckError_not_in: [String]
+  checkPending: Boolean
+  checkPending_not: Boolean
+  whoisData: String
+  whoisData_not: String
+  whoisData_contains: String
+  whoisData_not_contains: String
+  whoisData_in: [String]
+  whoisData_not_in: [String]
+}
+
+input DomainWhereUniqueInput {
+  id: ID!
+}
+
+enum SortDomainsBy {
+  id_ASC
+  id_DESC
+  name_ASC
+  name_DESC
+  registryCreationDate_ASC
+  registryCreationDate_DESC
+  registryExpiryDate_ASC
+  registryExpiryDate_DESC
+  registryUpdatedDate_ASC
+  registryUpdatedDate_DESC
+  registryDomainId_ASC
+  registryDomainId_DESC
+  registrar_ASC
+  registrar_DESC
+  registrarWhoisServer_ASC
+  registrarWhoisServer_DESC
+  lastCheckedDate_ASC
+  lastCheckedDate_DESC
+  lastCheckError_ASC
+  lastCheckError_DESC
+  checkPending_ASC
+  checkPending_DESC
+  whoisData_ASC
+  whoisData_DESC
+}
+
+input DomainUpdateInput {
+  name: String
+  registryCreationDate: String
+  registryExpiryDate: String
+  registryUpdatedDate: String
+  registryDomainId: String
+  registrar: String
+  registrarWhoisServer: String
+  lastCheckedDate: String
+  lastCheckError: String
+  checkPending: Boolean
+  whoisData: String
+}
+
+input DomainsUpdateInput {
+  id: ID!
+  data: DomainUpdateInput
+}
+
+input DomainCreateInput {
+  name: String
+  registryCreationDate: String
+  registryExpiryDate: String
+  registryUpdatedDate: String
+  registryDomainId: String
+  registrar: String
+  registrarWhoisServer: String
+  lastCheckedDate: String
+  lastCheckError: String
+  checkPending: Boolean
+  whoisData: String
+}
+
+input DomainsCreateInput {
+  data: DomainCreateInput
+}
+
+"""
+ A keystone list
+"""
+type WhoisServer {
+  id: ID!
+  tld: String
+  server: String
+}
+
+input WhoisServerWhereInput {
+  AND: [WhoisServerWhereInput]
+  OR: [WhoisServerWhereInput]
+  id: ID
+  id_not: ID
+  id_lt: ID
+  id_lte: ID
+  id_gt: ID
+  id_gte: ID
+  id_in: [ID]
+  id_not_in: [ID]
+  tld: String
+  tld_not: String
+  tld_contains: String
+  tld_not_contains: String
+  tld_in: [String]
+  tld_not_in: [String]
+  server: String
+  server_not: String
+  server_contains: String
+  server_not_contains: String
+  server_in: [String]
+  server_not_in: [String]
+}
+
+input WhoisServerWhereUniqueInput {
+  id: ID!
+}
+
+enum SortWhoisServersBy {
+  id_ASC
+  id_DESC
+  tld_ASC
+  tld_DESC
+  server_ASC
+  server_DESC
+}
+
+input WhoisServerUpdateInput {
+  tld: String
+  server: String
+}
+
+input WhoisServersUpdateInput {
+  id: ID!
+  data: WhoisServerUpdateInput
+}
+
+input WhoisServerCreateInput {
+  tld: String
+  server: String
+}
+
+input WhoisServersCreateInput {
+  data: WhoisServerCreateInput
+}
+
+"""
 The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
 """
 scalar JSON
@@ -117,6 +354,66 @@ type Mutation {
    Delete multiple User items by ID.
   """
   deleteUsers(ids: [ID!]): [User]
+
+  """
+   Create a single Domain item.
+  """
+  createDomain(data: DomainCreateInput): Domain
+
+  """
+   Create multiple Domain items.
+  """
+  createDomains(data: [DomainsCreateInput]): [Domain]
+
+  """
+   Update a single Domain item by ID.
+  """
+  updateDomain(id: ID!, data: DomainUpdateInput): Domain
+
+  """
+   Update multiple Domain items by ID.
+  """
+  updateDomains(data: [DomainsUpdateInput]): [Domain]
+
+  """
+   Delete a single Domain item by ID.
+  """
+  deleteDomain(id: ID!): Domain
+
+  """
+   Delete multiple Domain items by ID.
+  """
+  deleteDomains(ids: [ID!]): [Domain]
+
+  """
+   Create a single WhoisServer item.
+  """
+  createWhoisServer(data: WhoisServerCreateInput): WhoisServer
+
+  """
+   Create multiple WhoisServer items.
+  """
+  createWhoisServers(data: [WhoisServersCreateInput]): [WhoisServer]
+
+  """
+   Update a single WhoisServer item by ID.
+  """
+  updateWhoisServer(id: ID!, data: WhoisServerUpdateInput): WhoisServer
+
+  """
+   Update multiple WhoisServer items by ID.
+  """
+  updateWhoisServers(data: [WhoisServersUpdateInput]): [WhoisServer]
+
+  """
+   Delete a single WhoisServer item by ID.
+  """
+  deleteWhoisServer(id: ID!): WhoisServer
+
+  """
+   Delete multiple WhoisServer items by ID.
+  """
+  deleteWhoisServers(ids: [ID!]): [WhoisServer]
   authenticateUserWithPassword(
     email: String!
     password: String!
@@ -192,6 +489,64 @@ type Query {
     where: UserWhereInput
     search: String
     sortBy: [SortUsersBy!]
+    orderBy: String
+    first: Int
+    skip: Int
+  ): _QueryMeta
+
+  """
+   Search for all Domain items which match the where clause.
+  """
+  allDomains(
+    where: DomainWhereInput
+    search: String
+    sortBy: [SortDomainsBy!]
+    orderBy: String
+    first: Int
+    skip: Int
+  ): [Domain]
+
+  """
+   Search for the Domain item with the matching ID.
+  """
+  Domain(where: DomainWhereUniqueInput!): Domain
+
+  """
+   Perform a meta-query on all Domain items which match the where clause.
+  """
+  _allDomainsMeta(
+    where: DomainWhereInput
+    search: String
+    sortBy: [SortDomainsBy!]
+    orderBy: String
+    first: Int
+    skip: Int
+  ): _QueryMeta
+
+  """
+   Search for all WhoisServer items which match the where clause.
+  """
+  allWhoisServers(
+    where: WhoisServerWhereInput
+    search: String
+    sortBy: [SortWhoisServersBy!]
+    orderBy: String
+    first: Int
+    skip: Int
+  ): [WhoisServer]
+
+  """
+   Search for the WhoisServer item with the matching ID.
+  """
+  WhoisServer(where: WhoisServerWhereUniqueInput!): WhoisServer
+
+  """
+   Perform a meta-query on all WhoisServer items which match the where clause.
+  """
+  _allWhoisServersMeta(
+    where: WhoisServerWhereInput
+    search: String
+    sortBy: [SortWhoisServersBy!]
     orderBy: String
     first: Int
     skip: Int

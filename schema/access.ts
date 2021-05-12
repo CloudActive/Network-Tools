@@ -12,6 +12,8 @@ type AccessArgs = {
 };
 
 export const access = {
+  isUser: ({ session, item }: AccessArgs) => !!session?.itemId === item,
+  isSession: ({ session }: AccessArgs) => !!session?.data,
   isAdmin: ({ session }: AccessArgs) => !!session?.data?.isAdmin,
 };
 

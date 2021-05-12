@@ -15,3 +15,24 @@ model User {
   password String?
   isAdmin  Boolean?
 }
+
+model Domain {
+  id                   Int       @id @default(autoincrement())
+  name                 String?
+  registryCreationDate DateTime?
+  registryExpiryDate   DateTime?
+  registryUpdatedDate  DateTime?
+  registryDomainId     String?
+  registrar            String?
+  registrarWhoisServer String?
+  lastCheckedDate      DateTime?
+  lastCheckError       String?
+  checkPending         Boolean?
+  whoisData            String?
+}
+
+model WhoisServer {
+  id     Int     @id @default(autoincrement())
+  tld    String? @unique
+  server String?
+}
