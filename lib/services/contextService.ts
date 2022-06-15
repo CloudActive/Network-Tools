@@ -1,4 +1,4 @@
-import { KeystoneContext } from '@keystone-next/types';
+import { KeystoneContext } from '@keystone-6/core/types';
 
 export class ContextService {
   #context: KeystoneContext = null;

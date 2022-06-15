@@ -1,4 +1,4 @@
-import { graphQLSchemaExtension, gql } from '@keystone-next/keystone/schema';
+import { graphQLSchemaExtension, gql} from '@keystone-6/core';
 
 const randomNumber = () => Math.round(Math.random() * 10);
 

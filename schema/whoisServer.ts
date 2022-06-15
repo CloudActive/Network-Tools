@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 
-import { list } from '@keystone-next/keystone/schema';
+import { list } from '@keystone-6/core';
 import {
   text,
   relationship,
@@ -11,17 +11,35 @@ import {
   virtual,
   image,
   file,
-} from '@keystone-next/fields';
+} from '@keystone-6/core/fields';
 
 import { access } from './access';
 import { whoisService } from '../lib/services/whoisService';
 
+
+type AccessArgs = {
+  session?: {
+    itemId?: string;
+    listKey?: string;
+    data?: {
+      name?: string;
+      isAdmin: boolean;
+    };
+  };
+  item?: any;
+};
+
+const isAdmin = ({ session }: AccessArgs) => {
+  return !!session?.data?.isAdmin;
+};
+
 export const WhoisServer = list({
   access: {
-    read: access.isAdmin,
-    update: access.isAdmin,
-    delete: access.isAdmin,
-    create: access.isAdmin,
+    operation: {
+      create: isAdmin,
+      update: isAdmin,
+      delete: isAdmin,
+      },
   },
   ui: {
     listView: {
@@ -30,12 +48,12 @@ export const WhoisServer = list({
     },
   },
   fields: {
-    tld: text({ isRequired: true, isUnique: true }),
-    server: text({ isRequired: true }),
+    tld: text({ validation: { isRequired: true } }),
+    server: text({ validation: { isRequired: true } }),
   },
   hooks: {
-    afterChange: ({ updatedItem }) => {
-      whoisService.setDomainWhoisServer(updatedItem.tld, updatedItem.server);
+    afterOperation: ({ item }) => {
+      whoisService.setDomainWhoisServer(item.tld, item.server);
     },
   },
 });

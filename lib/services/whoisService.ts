@@ -1,7 +1,7 @@
 import whois from '@mysupport/whois';
 import { parseDomain, ParseResultType } from 'parse-domain';
 
-import { KeystoneContext } from '@keystone-next/types';
+import { KeystoneContext } from '@keystone-6/core/types';
 import { ContextService } from './contextService';
 import { sleep } from '../utils';
 
@@ -73,8 +73,9 @@ export class WhoisService extends ContextService {
             checkPending: false,
           };
 
-      const result = await this.context.lists.Domain.updateOne({
-        id: domain.id,
+      const result = await this.context.query.Domain.updateOne({
+        
+        where: {id: domain.id},
         data,
       });
       console.log(`saved domain info for: ${domain.name}${error ? `with error ${error}` : ''}`);
@@ -84,8 +85,8 @@ export class WhoisService extends ContextService {
   }
 
   async cacheDomainWhoisServer() {
-    const whoisServers = await this.context.lists.WhoisServer.findMany({
-      first: 100,
+    const whoisServers = await this.context.query.WhoisServer.findMany({
+      where:{ first: 100 },
       query: 'id tld server',
     });
 

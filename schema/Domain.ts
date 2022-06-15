@@ -1,6 +1,6 @@
 import { formatDistanceToNow } from 'date-fns';
 
-import { list } from '@keystone-next/keystone/schema';
+import { list, graphql } from '@keystone-6/core';
 import {
   text,
   relationship,
@@ -11,27 +11,44 @@ import {
   virtual,
   image,
   file,
-} from '@keystone-next/fields';
+} from '@keystone-6/core/fields';
 
 import { access } from './access';
 import { whoisService } from '../lib/services/whoisService';
 
+type AccessArgs = {
+  session?: {
+    itemId?: string;
+    listKey?: string;
+    data?: {
+      name?: string;
+      isAdmin: boolean;
+    };
+  };
+  item?: any;
+};
+
+const isAdmin = ({ session }: AccessArgs) => {
+  return !!session?.data?.isAdmin;
+};
+
 export const Domain = list({
   access: {
-    read: access.isAdmin,
-    update: access.isAdmin,
-    delete: access.isAdmin,
-    create: access.isAdmin,
-  },
+    operation: {
+    create: isAdmin,
+    update: isAdmin,
+    delete: isAdmin,
+    },
+   },
   ui: {
     listView: {
-      initialColumns: ['name', 'age', 'expiresIn'],
+      initialColumns: ['name'],
       initialSort: { field: 'registryExpiryDate', direction: 'DESC' },
       pageSize: 100,
     },
   },
   fields: {
-    name: text({ isRequired: true }),
+    name: text({ validation: { isRequired: true } }),
     registryCreationDate: timestamp({}),
     registryExpiryDate: timestamp({}),
     registryUpdatedDate: timestamp({}),
@@ -44,19 +61,30 @@ export const Domain = list({
     whoisData: text({ ui: { displayMode: 'textarea' } }),
     /** virtual */
     expiresIn: virtual({
-      resolver: item =>
-        (item.registryExpiryDate && `${formatDistanceToNow(item.registryExpiryDate)}`) || 'N/A',
+    field: graphql.field({
+      type: graphql.String,
+      resolve(item:any) {
+        return((item.registryExpiryDate && `${formatDistanceToNow(item.registryExpiryDate)}`|| 'N/A'));
+      }
+    }),
+      
     }),
     age: virtual({
-      resolver: item =>
-        (item.registryCreationDate && `${formatDistanceToNow(item.registryCreationDate)}`) || 'N/A',
+    field: graphql.field({
+      type: graphql.String,
+      resolve(item:any) {
+        return((item.registryExpiryDate && `${formatDistanceToNow(item.registryExpiryDate)}`|| 'N/A'));
+      }
     }),
-  },
+    }),
+   },
   hooks: {
-    afterChange: ({ operation, originalInput, updatedItem }) => {
-      if (operation === 'create' || (operation === 'update' && !!originalInput.checkPending)) {
-        whoisService.queueDomains([updatedItem]);
+    afterOperation: ({ operation, originalItem, item }) => {
+      if (operation === 'create' || (operation === 'update' && !!originalItem.checkPending)) {
+        whoisService.queueDomains([item]);
+
       }
     },
-  },
+    },
+   
 });

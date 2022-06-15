@@ -1,14 +1,31 @@
-import { list } from '@keystone-next/keystone/schema';
-import { text, checkbox, password } from '@keystone-next/fields';
+import { list } from '@keystone-6/core';
+import { text, checkbox, password } from '@keystone-6/core/fields';
 
 import { access } from './access';
 
+type AccessArgs = {
+  session?: {
+    itemId?: string;
+    listKey?: string;
+    data?: {
+      name?: string;
+      isAdmin: boolean;
+    };
+  };
+  item?: any;
+};
+
+const isAdmin = ({ session }: AccessArgs) => {
+  return !!session?.data?.isAdmin;
+};
+
 export const User = list({
   access: {
-    read: access.isAdmin,
-    update: access.isAdmin,
-    delete: access.isAdmin,
-    create: access.isAdmin,
+    operation: {
+      create: isAdmin,
+      update: isAdmin,
+      delete: isAdmin,
+      },
   },
   ui: {
     listView: {
@@ -17,9 +34,9 @@ export const User = list({
   },
   fields: {
     /** The user's first and last name. */
-    name: text({ isRequired: true }),
+    name: text({ validation: { isRequired: true } }),
     /** Email is used to log into the system. */
-    email: text({ isRequired: true, isUnique: true }),
+    email: text({isIndexed: 'unique',validation: { isRequired: true }}),
     password: password(),
     /** Administrators have more access to various lists and fields. */
     isAdmin: checkbox({

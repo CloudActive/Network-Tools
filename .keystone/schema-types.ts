@@ -4,7 +4,7 @@ type Scalars = {
   readonly String: string;
   readonly Int: number;
   readonly Float: number;
-  readonly JSON: import('@keystone-next/types').JSONValue;
+  readonly JSON: import('@keystone-6/core/types').JSONValue;
 };
 
 export type PhoneNumberRelateToManyInput = {
@@ -588,11 +588,11 @@ export type UserListTypeInfo = {
 };
 
 export type UserListFn = (
-  listConfig: import('@keystone-next/keystone/schema').ListConfig<
+  listConfig: import('@keystone-6/core').ListConfig<
     UserListTypeInfo,
     UserListTypeInfo['fields']
   >
-) => import('@keystone-next/keystone/schema').ListConfig<
+) => import('@keystone-6/core').ListConfig<
   UserListTypeInfo,
   UserListTypeInfo['fields']
 >;
@@ -635,11 +635,11 @@ export type PhoneNumberListTypeInfo = {
 };
 
 export type PhoneNumberListFn = (
-  listConfig: import('@keystone-next/keystone/schema').ListConfig<
+  listConfig: import('@keystone-6/core').ListConfig<
     PhoneNumberListTypeInfo,
     PhoneNumberListTypeInfo['fields']
   >
-) => import('@keystone-next/keystone/schema').ListConfig<
+) => import('@keystone-6/core').ListConfig<
   PhoneNumberListTypeInfo,
   PhoneNumberListTypeInfo['fields']
 >;
@@ -685,11 +685,11 @@ export type PostListTypeInfo = {
 };
 
 export type PostListFn = (
-  listConfig: import('@keystone-next/keystone/schema').ListConfig<
+  listConfig: import('@keystone-6/core').ListConfig<
     PostListTypeInfo,
     PostListTypeInfo['fields']
   >
-) => import('@keystone-next/keystone/schema').ListConfig<
+) => import('@keystone-6/core').ListConfig<
   PostListTypeInfo,
   PostListTypeInfo['fields']
 >;
